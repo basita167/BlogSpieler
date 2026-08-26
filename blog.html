@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,51 +108,375 @@ nav a:hover {
 
 
 
-/* POST CARD */
+/* =========================
+   HERO
+========================= */
 
-.post-card{
-    background:linear-gradient(145deg,#0f172a,#0b1220);
-    border:1px solid rgba(255,255,255,0.08);
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:12px;
-    transform-style:preserve-3d;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    
+.hero {
+    position: relative;
+    min-height: 380px;
+    margin-bottom: 45px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(56,189,248,0.15);
+    background: #0b1220;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.45;
+    transform: scale(1.04);
+    transition:
+        opacity 0.7s ease,
+        transform 5s ease;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(2,6,23,0.98) 0%,
+            rgba(2,6,23,0.82) 40%,
+            rgba(2,6,23,0.35) 100%
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    min-height: 380px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 45px;
+    max-width: 720px;
+
+    animation: heroEnter 0.7s ease;
+}
+
+.hero-label {
+    color: var(--accent);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+}
+
+.hero-title {
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.hero-date {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.hero-description {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 650px;
+}
+
+.hero-button {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 25px;
+
+    padding: 10px 18px;
+    border-radius: 8px;
+
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.35);
+
+    color: var(--accent);
+    text-decoration: none;
+
+    transition: 0.25s ease;
+}
+
+.hero-button:hover {
+    background: var(--accent);
+    color: #020617;
+    transform: translateY(-2px);
 }
 
 
+/* HERO CONTROLS */
 
-.post-card:hover{
-    transform: translateY(-4px);
+.hero-controls {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    z-index: 5;
+
+    display: flex;
+    gap: 8px;
+}
+
+.hero-controls button {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background: rgba(2,6,23,0.7);
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.hero-controls button:hover {
     border-color: var(--accent);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-    
+    color: var(--accent);
 }
 
 
+/* HERO ANIMATION */
+
+@keyframes heroEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 
+/* =========================
+   HORIZONTAL ARTICLE STRIP
+========================= */
 
+.articles-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.articles-header h2 {
+    font-size: 22px;
+}
+
+.strip-controls {
+    display: flex;
+    gap: 7px;
+}
+
+.strip-controls button {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 7px;
+
+    background: #111827;
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.strip-controls button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+
+/* THE STRIP */
+
+.article-strip {
+    display: flex;
+    gap: 18px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 8px 3px 20px;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+    scrollbar-color: #334155 transparent;
+}
+
+.article-strip::-webkit-scrollbar {
+    height: 6px;
+}
+
+.article-strip::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.article-strip::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+}
+
+
+/* CARD */
+
+.post-card {
+    flex: 0 0 280px;
+
+    min-height: 230px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111827,
+            #0b1220
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    scroll-snap-align: start;
+
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* ACCENT LINE */
+
+.post-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: var(--accent);
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform 0.3s ease;
+}
+
+
+.post-card:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(56,189,248,0.45);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,0.5);
+}
+
+.post-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.post-card-image {
+    width: 100%;
+    height: 125px;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+
+    margin-bottom: 15px;
+
+    opacity: 0.85;
+
+    transition: 0.4s ease;
+}
+
+.post-card:hover .post-card-image {
+    opacity: 1;
+    transform: scale(1.03);
+}
 
 
 .post-title {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.35;
+
+    margin-bottom: 7px;
 }
 
 .post-meta {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 9px;
 }
 
 .post-content {
-    font-size: 14px;
-    color: var(--text);
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.6;
 }
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .hero-content {
+        padding: 28px;
+    }
+
+    .hero {
+        min-height: 420px;
+    }
+
+    .hero-content {
+        min-height: 420px;
+    }
+
+    .post-card {
+        flex-basis: 82vw;
+    }
+
+}
+
+
+
+
 
 /* BUTTON */
 .btn {
@@ -223,7 +548,7 @@ footer {
 <nav>
     <img src="./assets/logo.png" style="width:44px; height:40px;"> <h1> blogSpieler</h1>
     <div>
-        <a href="#/">Home</a>
+       
     </div>
 </nav>
 
@@ -263,34 +588,36 @@ const posts = [
 
 {
 id: 1,
-title: "The Importance of Structured Writing",
-date: "Aug 25, 2026",
-image: "https://images.unsplash.com/photo-1455390582262-044cdead277a",
+title: "When AI Agents Become a Software Engineering Team",
+date: "Aug 26, 2026",
+image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb",
 content: [
-"Structured writing improves clarity and communication by organizing ideas in a logical flow. It helps readers understand the message without confusion or ambiguity. A well-structured piece guides the reader step by step through the topic. It reduces unnecessary repetition and keeps the content focused. Writers can express their ideas more effectively when they follow a clear structure. This makes the overall reading experience smoother and more engaging.",
 
-    "Good structure also enhances readability by breaking content into meaningful sections. Each section serves a specific purpose and supports the main idea. Readers can easily follow arguments when information is well organized. It prevents information overload by presenting ideas in manageable parts. This approach is especially useful in academic and professional writing. It ensures that the message is delivered in a clear and disciplined manner.",
+"Cursor's research into using a swarm of AI agents to build a SQLite-compatible database in Rust provides an interesting glimpse into a possible future of software engineering. Instead of asking a single AI agent to understand and implement an entire complex system, the work is divided among multiple agents responsible for planning, implementation, debugging, testing, and maintaining shared knowledge. The experiment used SQLite's extensive documentation while withholding the original SQLite source code, binary, and test suite. The important idea is therefore not simply that AI can generate code, but that multiple agents can be organized into a software engineering workflow where a high-level specification is progressively broken down into smaller executable tasks.",
 
-    "In professional environments, structured writing improves decision-making and collaboration. Reports and documents become easier to review and analyze. Teams can quickly extract key points without reading unnecessary details. It saves time and increases productivity in workplaces. Clear structure also reduces misunderstandings between team members. As a result, communication becomes more efficient and reliable.",
+"The biggest advantage of this approach is parallelism. Different agents can work on different components at the same time, potentially reducing the amount of time required to implement a large project. Specialization is another benefit: one agent can focus on architecture and planning while other agents handle implementation, testing, debugging, or documentation. A shared knowledge mechanism can also allow agents to record important discoveries and decisions for later agents. This creates something resembling a collective engineering memory. Another interesting aspect is model economics. Powerful models do not necessarily need to perform every task. More capable models can be reserved for difficult architectural and reasoning problems while less expensive models handle routine implementation work.",
 
-    "Structured writing is particularly important when explaining complex subjects. Difficult concepts can become easier to understand when they are introduced gradually. Writers can begin with basic ideas before moving toward more advanced information. Examples, explanations, and supporting details can then be placed where they are most useful. This creates a natural progression that helps readers build their understanding. A logical sequence can make even technical subjects more accessible.",
+"However, the swarm approach introduces a completely different class of engineering problems. More agents do not automatically mean better software. Agents can duplicate work, make conflicting architectural decisions, modify the same files, misunderstand the context of another agent's work, or introduce subtle bugs that become difficult to trace. Context management therefore becomes extremely important. Giving every agent the entire project can overwhelm its context, while giving it too little information can lead to incorrect decisions. The quality of the original specification also becomes critical because a poorly defined requirement can be decomposed into many perfectly executed tasks that collectively produce the wrong system.",
 
-    "Another important benefit of structured writing is that it helps writers maintain focus. Without a clear structure, writers may move between unrelated ideas or include information that does not support the main topic. Planning the content before writing makes it easier to identify what should be included and what should be removed. This creates a more precise and purposeful piece of writing. A focused structure also makes the writer's main argument easier to recognize.",
+"There is also a much more serious concern: autonomous agents can have access to real development environments and shell commands. If an agent has excessive permissions, a mistaken command can cause destructive consequences. The broader AI coding-agent ecosystem has already produced reported incidents involving agents deleting files or repositories through destructive operations such as rm -rf. This is a powerful reminder that autonomous coding should not be treated as harmless text generation. An agent operating inside a real repository has the ability to modify or destroy actual software, so permissions, isolation, backups, Git checkpoints, sandboxing, and human approval for irreversible operations become important parts of the architecture.",
 
-    "Structured writing also plays an important role in academic work. Essays, research papers, assignments, and reports generally require information to follow a logical sequence. An introduction can establish the topic, while the main sections develop the discussion and the conclusion brings the ideas together. This organization allows readers to understand how different points are connected. It also makes academic work easier to evaluate and review.",
+"This changes the way we should think about AI-assisted programming. The central problem is no longer only how intelligent an individual model is. It is also how agents are coordinated, what information they receive, what tools they can access, what actions they are allowed to perform, and how their work is evaluated. A swarm needs mechanisms for task decomposition, communication, shared memory, testing, integration, rollback, and failure recovery. In other words, building an effective agent swarm starts to look surprisingly similar to designing a distributed software engineering organization.",
 
-    "In digital communication, structure has become even more important because people often have limited attention spans. Online readers usually scan content before deciding whether to read it completely. Clear paragraphs, meaningful sections, and logical organization allow important information to be discovered quickly. Well-structured digital content can therefore improve engagement and comprehension. This is valuable for websites, blogs, documentation, online learning materials, and other forms of digital communication.",
+"The broader lesson from Cursor's experiment is that AI development may gradually move from a model where an AI writes individual functions toward a model where AI agents participate in an entire engineering pipeline. Humans could increasingly define requirements, architecture, constraints, evaluation criteria, and safety boundaries while agents perform larger portions of implementation and testing. But this does not remove the need for human engineering knowledge. Instead, understanding architecture, operating systems, programming languages, security, version control, testing, and system design becomes even more important because someone must define the boundaries within which autonomous agents operate.",
 
-    "Structured writing can also strengthen the credibility of the writer. When ideas are presented in a clear and organized manner, readers are more likely to view the writer as knowledgeable and professional. A disorganized document can make even accurate information difficult to trust or understand. Careful organization demonstrates that the writer has considered both the subject and the needs of the audience. This creates a stronger connection between the writer and the reader.",
+"AI agent swarms therefore have enormous potential, but they also increase the blast radius of mistakes. The more autonomy we give an agent, the more carefully we need to control its environment. Isolated Git worktrees, frequent commits, restricted filesystem permissions, sandboxed execution, automated tests, repository backups, and explicit approval for destructive commands can turn an uncontrolled experiment into a much safer engineering workflow. The future may indeed involve AI agents functioning like software engineering teams, but the real breakthrough will not be simply creating more agents. It will be creating reliable systems for coordinating, evaluating, and safely controlling them."
+],
 
-    "Developing structured writing skills requires practice and careful revision. Writers can begin by identifying the main purpose of their work and then organizing supporting ideas around it. Creating an outline before writing can provide a useful framework for arranging paragraphs and sections. After completing the first draft, reviewing the sequence of ideas can reveal unnecessary repetition or missing information. Regular practice gradually makes this process more natural and effective.",
-
-    "Overall, structured writing is an essential skill for effective communication in any field. It helps writers present their ideas in a logical and organized way. Readers benefit from improved clarity and better understanding of the content. It also builds credibility and professionalism in written work. With practice, anyone can improve their writing structure and effectiveness. Strong structure ultimately leads to stronger impact, better comprehension, and more meaningful communication."
+references: [
+"Cursor, Agent Swarms and the New Model Economics, 2026.",
+"SQLite Documentation, SQLite.org.",
+"SQLite, SQL Logic Test documentation and testing resources.",
+"Cursor research discussion on multi-agent software engineering and model economics."
 ]
 
-}
+},
 
-,
+
 
 
 {
@@ -560,57 +887,313 @@ const app = document.getElementById("app");
 const postsPerPage = 4;
 let currentPage = 1;
 
+let heroIndex = 0;
+let heroTimer = null;
+
+
+
+function updateHero() {
+
+    const heroBg = document.getElementById("heroBg");
+    const heroContent = document.getElementById("heroContent");
+
+    if (!heroBg || !heroContent) return;
+
+    const post = posts[heroIndex];
+
+    /*
+        Fade the current hero out
+    */
+
+    heroContent.style.opacity = "0";
+    heroBg.style.opacity = "0";
+
+
+    setTimeout(() => {
+
+        heroBg.style.backgroundImage =
+            `url('${post.image}')`;
+
+        heroContent.innerHTML = `
+
+            <div class="hero-label">
+                Featured Article
+            </div>
+
+            <h2 class="hero-title">
+                ${post.title}
+            </h2>
+
+            <div class="hero-date">
+                ${post.date}
+            </div>
+
+            <p class="hero-description">
+                ${post.content[0].substring(0, 260)}...
+            </p>
+
+            <a
+                class="hero-button"
+                href="#/post/${post.id}">
+                Read Article →
+            </a>
+
+        `;
+
+
+        /*
+            Force animation restart
+        */
+
+        heroContent.style.animation = "none";
+
+        void heroContent.offsetWidth;
+
+        heroContent.style.animation =
+            "heroEnter 0.7s ease";
+
+
+        heroBg.style.opacity = "0.45";
+        heroContent.style.opacity = "1";
+
+    }, 400);
+}
+
+function nextHero() {
+
+    heroIndex++;
+
+    if (heroIndex >= posts.length) {
+        heroIndex = 0;
+    }
+
+    updateHero();
+}
+
+function previousHero() {
+
+    heroIndex--;
+
+    if (heroIndex < 0) {
+        heroIndex = posts.length - 1;
+    }
+
+    updateHero();
+}
+
+function startHeroRotation() {
+
+    clearInterval(heroTimer);
+
+    heroTimer = setInterval(() => {
+        nextHero();
+    }, 7000);
+}
 
 function renderHome() {
 
+    const featured = posts[0];
+
     const start = (currentPage - 1) * postsPerPage;
     const end = start + postsPerPage;
+
     const paginatedPosts = posts.slice(start, end);
 
     app.innerHTML = `
-        <h2> Articles</h2>
-        <br/>
 
-        ${paginatedPosts.map(p => {
+        <!-- HERO -->
 
-            let fullText = Array.isArray(p.content)
-                ? p.content.join(" ")
-                : p.content;
+        <section class="hero">
 
-            let preview = fullText.length > 140
-                ? fullText.substring(0, 140) + "..."
-                : fullText;
+            <div
+                class="hero-bg"
+                id="heroBg"
+                style="background-image:url('${featured.image}')">
+            </div>
 
-            return `
-                <div class="post-card" onclick="location.hash='#/post/${p.id}'">
-                    <div class="post-title">${p.title}</div>
-                    <div class="post-meta">${p.date}</div>
-                    <div class="post-content">
-                        ${preview}
-                    </div>
+            <div class="hero-content" id="heroContent">
+
+                <div class="hero-label">
+                    Featured Article
                 </div>
-            `;
-        }).join("")}
 
-        <div style="display:flex; justify-content:space-between; margin-top:20px;">
-            <button onclick="prevPage()" style="padding:8px 12px; background:#111827; color:#e5e7eb; border:1px solid #1f2937; cursor:pointer;">
+                <h2 class="hero-title">
+                    ${featured.title}
+                </h2>
+
+                <div class="hero-date">
+                    ${featured.date}
+                </div>
+
+                <p class="hero-description">
+                    ${
+                        featured.content[0].substring(0, 260)
+                    }...
+                </p>
+
+                <a
+                    class="hero-button"
+                    href="#/post/${featured.id}">
+                    Read Article →
+                </a>
+
+            </div>
+
+            <div class="hero-controls">
+
+                <button onclick="previousHero()">
+                    ←
+                </button>
+
+                <button onclick="nextHero()">
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ARTICLES -->
+
+        <div class="articles-header">
+
+            <h2>Latest Articles</h2>
+
+            <div class="strip-controls">
+
+                <button onclick="scrollArticles(-1)">
+                    ←
+                </button>
+
+                <button onclick="scrollArticles(1)">
+                    →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="article-strip" id="articleStrip">
+
+            ${paginatedPosts.map(p => {
+
+                let fullText = Array.isArray(p.content)
+                    ? p.content.join(" ")
+                    : p.content;
+
+                let preview =
+                    fullText.length > 120
+                    ? fullText.substring(0, 120) + "..."
+                    : fullText;
+
+                return `
+
+                    <div
+                        class="post-card"
+                        onclick="location.hash='#/post/${p.id}'">
+
+                        ${
+                            p.image
+                            ? `
+                            <img
+                                class="post-card-image"
+                                src="${p.image}"
+                                alt="${p.title}">
+                            `
+                            : ""
+                        }
+
+                        <div class="post-title">
+                            ${p.title}
+                        </div>
+
+                        <div class="post-meta">
+                            ${p.date}
+                        </div>
+
+                        <div class="post-content">
+                            ${preview}
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("")}
+
+        </div>
+
+
+        <!-- PAGINATION -->
+
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-top:25px;
+            ">
+
+            <button
+                onclick="prevPage()"
+                style="
+                    padding:8px 12px;
+                    background:#111827;
+                    color:#e5e7eb;
+                    border:1px solid #1f2937;
+                    cursor:pointer;
+                    border-radius:6px;
+                ">
                 ◀ Previous
             </button>
 
-            <span style="color:#94a3b8; font-size:14px;">
-                Page ${currentPage} / ${Math.ceil(posts.length / postsPerPage)}
+
+            <span
+                style="
+                    color:#94a3b8;
+                    font-size:14px;
+                ">
+                Page ${currentPage} /
+                ${Math.ceil(posts.length / postsPerPage)}
             </span>
 
-            <button onclick="nextPage()" style="padding:8px 12px; background:#111827; color:#e5e7eb; border:1px solid #1f2937; cursor:pointer;">
+
+            <button
+                onclick="nextPage()"
+                style="
+                    padding:8px 12px;
+                    background:#111827;
+                    color:#e5e7eb;
+                    border:1px solid #1f2937;
+                    cursor:pointer;
+                    border-radius:6px;
+                ">
                 Next ▶
             </button>
+
         </div>
+
     `;
+
+    startHeroRotation();
 }
 
 
+function scrollArticles(direction) {
 
+    const strip = document.getElementById("articleStrip");
 
+    if (!strip) return;
+
+    const amount = 320;
+
+    strip.scrollBy({
+        left: direction * amount,
+        behavior: "smooth"
+    });
+}
 
 
 

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -181,9 +180,8 @@ nav{
 ========================================================= */
 
 .featured{
-    display:grid;
-    grid-template-columns:1.65fr 1fr;
-    min-height:470px;
+    height:470px;
+    overflow:hidden;
 
     border-bottom:1px solid var(--line);
 }
@@ -194,7 +192,8 @@ nav{
 .featured-visual{
     position:relative;
     overflow:hidden;
-    min-height:470px;
+    height:100%;
+    width:100%;
     background:#222;
 }
 
@@ -261,51 +260,14 @@ nav{
 
 .featured-caption h2{
     font-family:Georgia,serif;
-    font-size:30px;
-    line-height:1.12;
-    max-width:650px;
+    font-size:38px;
+    line-height:1.1;
+    letter-spacing:-1px;
+    max-width:750px;
 }
 
 
-/* FEATURED CONTENT */
-
-.featured-content{
-    background:#fff;
-    padding:45px 40px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.featured-label{
-    color:var(--accent);
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.featured-content h2{
-    font-family:Georgia,serif;
-    font-size:37px;
-    line-height:1.08;
-    letter-spacing:-1.5px;
-    margin-bottom:15px;
-}
-
-.featured-date{
-    color:var(--muted);
-    font-size:12px;
-    margin-bottom:22px;
-}
-
-.featured-excerpt{
-    color:#555;
-    font-size:15px;
-    line-height:1.8;
-}
+/* READ LINK (used in hero caption) */
 
 .read-link{
     display:inline-flex;
@@ -314,9 +276,9 @@ nav{
 
     width:max-content;
 
-    margin-top:28px;
+    margin-top:18px;
 
-    color:var(--black);
+    color:#fff;
     text-decoration:none;
 
     font-size:12px;
@@ -324,7 +286,7 @@ nav{
     text-transform:uppercase;
     letter-spacing:1px;
 
-    border-bottom:2px solid var(--black);
+    border-bottom:2px solid #fff;
     padding-bottom:5px;
 }
 
@@ -341,23 +303,24 @@ nav{
 .featured-controls{
     display:flex;
     gap:7px;
-    margin-top:25px;
+    margin-top:22px;
 }
 
 .featured-controls button{
     width:38px;
     height:34px;
 
-    background:white;
-    border:1px solid var(--line);
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.4);
+    color:#fff;
 
     cursor:pointer;
     font-size:15px;
 }
 
 .featured-controls button:hover{
-    background:var(--black);
-    color:white;
+    background:#fff;
+    color:var(--black);
 }
 
 
@@ -743,15 +706,7 @@ footer{
 @media(max-width:900px){
 
     .featured{
-        grid-template-columns:1fr;
-    }
-
-    .featured-visual{
-        min-height:390px;
-    }
-
-    .featured-content{
-        padding:35px 28px;
+        height:390px;
     }
 
     .article-grid{
@@ -811,23 +766,11 @@ footer{
     }
 
     .featured{
-        margin:0;
-    }
-
-    .featured-visual{
-        min-height:340px;
+        height:340px;
     }
 
     .featured-caption h2{
         font-size:24px;
-    }
-
-    .featured-content{
-        padding:30px 22px;
-    }
-
-    .featured-content h2{
-        font-size:30px;
     }
 
     .article-grid{
@@ -866,12 +809,8 @@ footer{
 
 @media(max-width:400px){
 
-    .featured-content h2{
-        font-size:26px;
-    }
-
-    .featured-excerpt{
-        font-size:14px;
+    .featured-caption h2{
+        font-size:21px;
     }
 
     .article-title{
@@ -898,27 +837,6 @@ a:focus-visible,
 
 <body>
 
-<!-- =======================================================
-     TOP BAR
-======================================================= -->
-
-<div class="topbar">
-
- 
-<div class="topbar-inner">
-
-    <div>
-        Independent Technology Publication
-    </div>
-
-    <div class="topbar-right">
-        Ideas · Code · AI · Digital Culture
-    </div>
-
-</div>
- 
-
-</div>
 
 <!-- =======================================================
      NAVIGATION
@@ -1362,10 +1280,13 @@ function updateHero(){
     const visual =
         document.getElementById("featuredVisual");
 
-    const content =
-        document.getElementById("featuredContent");
+    const captionTitle =
+        document.getElementById("featuredCaptionTitle");
 
-    if(!visual || !content)
+    const readLink =
+        document.getElementById("featuredReadLink");
+
+    if(!visual)
         return;
 
     const post =
@@ -1373,7 +1294,8 @@ function updateHero(){
 
     visual.style.opacity="0";
 
-    content.style.opacity="0";
+    if(captionTitle)
+        captionTitle.style.opacity="0";
 
 
     setTimeout(()=>{
@@ -1381,57 +1303,25 @@ function updateHero(){
         visual.style.backgroundImage =
             `url("${post.image}")`;
 
-        content.innerHTML = `
+        if(captionTitle){
 
-            <div class="featured-label">
-                Featured Article
-            </div>
+            captionTitle.textContent =
+                post.title;
 
-            <h2>
-                ${post.title}
-            </h2>
+            captionTitle.style.opacity="1";
 
-            <div class="featured-date">
-                ${post.date}
-            </div>
+        }
 
-            <p class="featured-excerpt">
-                ${excerpt(post.content[0],310)}
-            </p>
+        if(readLink){
 
-            <a
-                href="#/post/${post.id}"
-                class="read-link">
+            readLink.setAttribute(
+                "href",
+                `#/post/${post.id}`
+            );
 
-                Read Full Story
-                <span>→</span>
-
-            </a>
-
-            <div class="featured-controls">
-
-                <button
-                    onclick="previousHero()"
-                    aria-label="Previous article">
-
-                    ←
-
-                </button>
-
-                <button
-                    onclick="nextHero()"
-                    aria-label="Next article">
-
-                    →
-
-                </button>
-
-            </div>
-
-        `;
+        }
 
         visual.style.opacity="1";
-        content.style.opacity="1";
 
     },250);
 
@@ -1522,7 +1412,6 @@ function renderHome(){
 
         <section class="featured">
 
-
             <div class="featured-visual">
 
                 <div
@@ -1546,61 +1435,39 @@ function renderHome(){
                         FEATURED
                     </div>
 
-                    <h2>
+                    <h2 id="featuredCaptionTitle" style="transition:opacity .3s ease;">
                         ${featured.title}
                     </h2>
 
-                </div>
+                    <a
+                        href="#/post/${featured.id}"
+                        id="featuredReadLink"
+                        class="read-link">
 
-            </div>
+                        Read Full Story
+                        <span>→</span>
 
+                    </a>
 
-            <div
-                class="featured-content"
-                id="featuredContent">
+                    <div class="featured-controls">
 
-                <div class="featured-label">
-                    Featured Article
-                </div>
+                        <button
+                            onclick="previousHero()"
+                            aria-label="Previous article">
 
-                <h2>
-                    ${featured.title}
-                </h2>
+                            ←
 
-                <div class="featured-date">
-                    ${featured.date}
-                </div>
+                        </button>
 
-                <p class="featured-excerpt">
-                    ${excerpt(featured.content[0],310)}
-                </p>
+                        <button
+                            onclick="nextHero()"
+                            aria-label="Next article">
 
-                <a
-                    href="#/post/${featured.id}"
-                    class="read-link">
+                            →
 
-                    Read Full Story
-                    <span>→</span>
+                        </button>
 
-                </a>
-
-                <div class="featured-controls">
-
-                    <button
-                        onclick="previousHero()"
-                        aria-label="Previous article">
-
-                        ←
-
-                    </button>
-
-                    <button
-                        onclick="nextHero()"
-                        aria-label="Next article">
-
-                        →
-
-                    </button>
+                    </div>
 
                 </div>
 
